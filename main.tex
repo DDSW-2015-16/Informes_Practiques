@@ -1,14 +1,183 @@
 \documentclass{article}
+\usepackage{setspace}
+\spacing{1.5}
+\usepackage{graphicx}
 
-\title{Motorent}
-\author{Arnau Sistach\\Marc Ferrer Margarit \\ Alberto Leiva Cabello}
+
+\title{\textbf{MOTORENT}}
+\author{Arnau Sistach Reinoso NIUB:\\Marc Ferrer Margarit NIUB:16624860\\ Alberto Leiva Cabello NIUB: \\Professor: Maria Salamo Llorente \\ Grup F}
 \renewcommand*\contentsname{\'Index}
 \begin{document}
 \maketitle
+\newpage
 \tableofcontents
-
-
+\newpage
 \section{Introducci\'o}
+
+L'objectiu d'aquesta pr\`actica és dissenyar un software per la gestió d'un nou servei de transport p\'ublic per despla\c car-se d'un punt a un altre dins de la ciutat de Barcelona. 
+\newline
+El funcionament d'aquest nou servei \'es basa en tenir diferents locals repartits en tot Barcelona, els quals cada local disposa d'un cert nombre de motos disponibles per llogar i d'un gerent que \'es l'encarregat de gestionar el local. D'aquesta manera quan una persona vol llogar una moto, nom\'es ha de registrar-se a la web, facilitar les dades necess\`aries i triar la moto que vol llogar i el temps que la utilitzar\`a. Un cop l'hagi utilitzat l'usuari retornar\`a la moto al local corresponent. 
+\newline
+Aix\'i doncs els que ens demanen es dissenyar uns software per poder gestionar aquest servei, \'es a dir, uns software que permeti a una persona registrar-se i llogar una moto. Aquest software tamb\'e ha de permetre als gerents gestionar les motos del local.
 \section{Casos d'\'us}
+Abans de començar a dissenyar aquest software hem de definir una s\`erie de requisits, \'es a dir, hem de definir el comportament del sistema, com usar el sistema per satisfer els objectius que l'empresa ens est\`a demanant i descriure el seu entorn i la relaci\'o amb l'entorn. Per poder realitzar aix\`o realitzem els casos de \'us que ens permetran definir els objectius que s'han de complir. 
+\newline
+Primer de tot realitzarem un diagrama dels casos d'\'us en el qual podrem observar els diferents actors que intervenen en el sistema i les diferents accions que realitzen. Despr\'es a partir del diagrama explicarem pasa a pas el flux que segueix cada cas d'\'us, \'es a dir, cada acci\'o que realitza un actor quin flux segueix i si hi algun altre flux posible, flux alternatiu.
+\subsection{Diagrama de casos d'\'us}
+\includegraphics[width=\textwidth]{diagrama}
+\newline
+Com podem observar hem definir 5 actors. Els actors usuari registrat, gerent i jefe s\'on els m\'es b\`asics del sistema ja que hem de tenir un usuari, un persona registrada al sistema, que pugui reservar una moto, un gerent que gestioni el local i una persona encarragada de gestionar tot el sistema, de gestionar tota l'empresa.
+\newline
+Despr\'es tamb\'e hem definit dos actors m\'es, un \'es la persona que encara no s'ha registrat, una persona que no s'ha registrat al sisetema no pot reservar cap moto, per tant, quan aquesta persona entri a la web i es registri al sistema passar\`a a ser un usuari regsitrat del sistema. Tamb\'e hem definit un actor temps, ja que un cop cada mes es realitza un informe, per tant es tracta d'un actor temporal que nom\'es actua cada cert temps.
+\newline
+I finalment totes els casos d'\'us es troben dins de la caixa del sistema ja que totes les accions que s'han de realitzar han d'interectuar amb el sistema.
+A continuaci\'o es mostra el codi utilizat per generar el diagrama:
+\newline
+\includegraphics[scale = 0.8]{codigouml}
+\subsection{Casos d'\'us textuals}
+Un cop hem realitzat el diagrama, a partir d'aquest redactarem els casos d'\'us textuals que s\'on els que ens explicaran quin \'es l'actor que actua sobre cada cas, les pre i post condicions, el seu flux, \'es a dir, les accions que realitza el cas pas a pas i el flux alternatiu, si hi ha algun altre flux possible.
+\newline
+\textbf{Cas d'\'Us 1:}\\
+\textbf{Resum:} Una persona es registra com a usuari en el sistema.\\
+\textbf{Actor principal:} Usuari no registrat.\\
+\textbf{Precondicions:} No ha d'estar registrat en el sistema.\\
+\textbf{Flux B\`asic:}\\
+1. L'usuari no registrat entra a sistema.\\
+2. L'usuari entra a la pantalla de registrar-se.\\
+3. L'usuari no registrat omple la informaci\'o personal requerida pel sistema.\\
+4. El sistema d\'ona d'alta el nou usuari.\\
+\textbf{ Flux alternatiu:}\\
+3. a. La informació entrada \'es incorrecta.\\
+\textbf{Postcondicions:} Queda registrat en el sistema com a usuari.\\\\
+\textbf{Cas d'\'Us 2:}\\
+\textbf{Resum:} L'usuari es d\'ona de baixa del sistema.\\
+\textbf{Actor principal:} Usuari\\
+\textbf{Precondicions}: Ha d'estar registrat en el sistema\\
+\textbf{Flux B\`asic:}\\
+1. L'usuari entra al sistema.\\
+2. L'usuari es loguea.\\
+3. L'usuari es d\'ona de baixa\\
+\textbf{Flux alternatiu:\\}
+2. a. L'usuari \'es incorrecte.\\
+\textbf{Postcondicions:} L'usuari es donat de baixa en el sistema.\\\\
+\textbf{Cas d'\'Us 3:}\\
+\textbf{Resum:} El client fa una reserva d'una moto\\
+\textbf{Actor principal:} Client\\
+\textbf{Precondicions:} El client ha d'estar registrat en el sistema\\
+\textbf{Flux B\`asic:}\\
+1. L'usuari es loguea en el sistema.\\
+2. Entra a l'apartat de reserva de motos del web.\\
+3. Selecciona e\textbf{}l local on recollir\`a la moto i el local on la deixar\`a.\\
+4. Selecciona la moto que vol reservar, triant el model i el color.\\
+5. Selecciona el temps que necessita aquesta moto.\\
+6. El sistema genera un codi de reserva.\\
+\textbf{Flux alternatiu:}\\
+1. a. No \'es usuari, per tant no es pot loguear.\\
+2. a. No pot reservar cap moto perquè encara ha de tornar la moto de la reserva anterior.\\
+4. a. La moto que vol reservar no est\`a disponible o t\'e algun desperfecte.\\
+\textbf{Postcondicions:} L'usuari ha reservat una moto.\\\\
+\textbf{Cas d'\'Us 4:}\\
+\textbf{Resum:} L'usuari modifica el local dest\'i de la reserva.\\
+\textbf{Actor principal:} Usuari.\\
+\textbf{Precondicions:} Hi ha d'haver fet una reserva.\\
+\textbf{Flux B\`asic:}\\
+1. L'usuari accedeix a les seves reserves.\\
+2. Selecciona la reserva la qual vol modificar el local destinació.\\
+3. Selecciona un nou local destinaci\'o.\\
+4. Confirma el local dest\'o de la seva reserva.\\
+\textbf{Flux alternatiu:\\}
+1. a. No pot accedir a les seves reserves perqu\`e no t\'e cap moto reservada.\\
+\textbf{Postcondicions:} El local dest\'i de la seva reserva ha estat modificat.\\\\
+\textbf{Cas d'\'Us 6:}\\
+\textbf{Resum:} El gerent comprova la reserva feta per un client.\\
+\textbf{Actor principal:} Gerent.\\
+\textbf{Precondicons:} El client ha d'haver fet una reserva.\\
+\textbf{Flux B\`asic:}\\
+1. El gerent li demana el n\'umero de reserva generat pel sistema al client.\\
+2. Comprova que el codi \'es correcte.\\
+3. Li lliura la moto reservada al client.\\
+Flux alternatiu: 
+2. a. El codi de reserva proporci\textbf{}onat no \'es correcte.\\
+3. a. No li lliura la moto al client perquè el seu codi de reserva \'es incorrecte.\\
+\textbf{Post Condicions:} El gerent li lliura la moto reservada al client.\\\\
+\textbf{Cas d'\'Us 7:}\\
+\textbf{Resum:} El gerent comprova que sempre hi hagi disponibilitat de motos al local.\\
+\textbf{Actor principal:} Gerent.\\
+\textbf{Precondicons:} Hi ha un m\'inim de 5 motos al local.\\
+\textbf{Flux B\`asic:}\\
+1. Hi ha 5 o menys motos al local per reservar.\\
+2. El gerent informa el cap de la manca de motos.\\
+3. El gerent demana que s'ompli el local amb m\'es motos.\\
+4. El local rep les motos disponibles.\\
+5. El local t\'e m\'es del 75\% de la seva capacitat de motos.\\
+\textbf{Flux alternatiu:\\}
+3. a. No queden m\'es motos disponibles per enviar al local.\\
+\textbf{Postcondicions:} Al local hi ha m\'es de 5 motos disponibles per a la reserva.\\\\
+\textbf{Cas d'\'Us 8:}\\
+\textbf{Resum:} El gerent registra una moto despr\'es que el client l'hagi fet servir.\\
+\textbf{Actor principal:} Gerent.\\
+\textbf{Precondicions:} El client ha tornat la moto al local.\\
+\textbf{Flux B\`asic:}\\
+1. El client torna la moto al local destinaci\'o especificat en la seva reserva.\\
+2. El gerent comprova el codi de reserva.\\
+3. El gerent recull la moto.\\
+Flux alternatiu: \\
+2. a. El codi de reserva proporcionat \'es incorrecte. 
+2. b. El gerent no recull la moto del client.\\
+3. a. La moto t\'e algun desperfecte o el client la ha tornat amb retard.\\
+3. b. En cas que tingui algun desperfecte apunta una falta al client i el cost de reparaci\'o de la moto se li carregar\`a al compte del client.\\
+3. c. En cas de retard el gerent apuntar\`a el retard i se li afegir\`a el cost addicional a la reserva del client.\\
+\textbf{Post Condicions:} El gerent ha recollit la moto del client.\\\\
+\textbf{Cas d'\'Us 12:}\\
+\textbf{Resum:} El cap veu per pantalla l'estoc de motos en el seu poder i en quin local es troba cadascuna, a m\'es de poder veure l'estoc superior i inferior al 75\%\\
+\textbf{Actor principal:} El cap de Motorrent\\
+\textbf{Precondicions:} Ha d'estar loguejat en el sistema per veure l'estoc de motos.\\
+\textbf{Flux B\`asic:}\\
+1. El cap decideix veure l'estoc de motos que t\'e i en quin local es troba.\\
+2. El sistema li mostra una llista amb cada moto i en quin local es troba\\
+Flux alternatiu:\\
+1. a. Decideix veure l'estoc de motos que hi ha als locals els quals supera el 75\%.\\
+2. a. Decideix veure l'estoc de motos que hi ha als locals els quals està per sota del 75\%.\\
+\textbf{Postcondicions:} El cap ha comprovat l'estoc de motos\\\\
+\textbf{Cas d'\'Us 13:}\\
+\textbf{Resum:} El cap gestiona locals i mou les motos al seu gust entre els locals que t\'e l'empresa Motorrent, tamb\'e t\'e l'opci\'o de crear nous locals i administrar els gerents de cada un dels locals.\\
+\textbf{Actor principal:} Cap\\
+\textbf{Precondicions:} S'ha loguejat en el sistema\\
+\textbf{Flux B\`asic:}\\
+1. El cap es loguea en el sistema.\\
+2. El sistema li mostra les opcions com a cap que t\'e.\\
+3. El cap escull l'opci\'o de Administrar locals.\\
+4. El sistema li mostra dels locals al seu poder i l'opci\'o de crear nous locals, aix\'i com l'opci\'o de gestionar empleats.\\
+5. El cap escull l'opci\'o de crear nous locals.\\
+6. El sistema li pregunta per les dades necess\`aries per registrar un local.\\
+7. El cap introdueix les dades necess\`aries per al nou local.\\
+8. El sistema li pregunta pel gerent que dirigir\`a el local.\\
+9. El cap escull el gerent.\\
+10. El sistema li demana que mogui motos al nou local i li mostra les motos disponibles en els locals (Veure cas d'\'us 12).\\
+11. El cap selecciona les motos.\\
+12. El sistema crea\textbf{} el local.\\
+\textbf{Flux alternatiu:\\}
+5. a El cap escull l'opci\'o de moure motos.\\
+6. a El sistema li mostra la llista de motos a cada local.\\
+7. a El cap mou les motos.\\
+8. a El sistema mou les motos.\\
+5. b El cap escull l'opci\'o de gestionar personal.\\
+6. b El sistema li mostra les opcions de l'\`area de gesti\'o de personal.\\
+\textbf{Postcondicions:} S'han gestionat els locals.\\\\
+\textbf{Cas d'\'Us 16:}\\
+\textbf{Resum:} El sistema cada X temps genera un informe per al cap\\
+\textbf{Actor principal:} Temps (com a actor)\\
+\textbf{Precondicions}: \'Es final de mes i ha passat un mes des de l'informe anterior.\\
+\textbf{Flux B\`asic:}\\
+1. Arriba X hora en el sistema\\
+2. El sistema genera l'informe per cada client amb el total de reserves, locals i si s'ha passat del temps de retorn de la moto, en quines condicions l'han retornat i el cost que se li cobrar\`a del seu compte bancari.\\
+\textbf{Flux alternatiu:\\}
+\textbf{Postcondicions:} S'ha generat l'informe.\\
 \section{Model de domini}
+
+\section{Distribuci\'o de la feina}
+\textbf{Alberto Leiva Cabello:} Esb\'os del diagrama de casos d'\'us, realitzaci\'o del plantuml i model de domini.\\
+\textbf{Marc Ferrer Margarit:} Esb\'os del diagrama de casos d'\'us, realitzaci\'o dels casos d'\'us textuals i informe.\\
+\textbf{Arnau Sistach Reinoso:} Esb\'os del diagrama de casos d'\'us i realitzaci\'o de la vista amb netbeans.\\
+
 \end{document}
